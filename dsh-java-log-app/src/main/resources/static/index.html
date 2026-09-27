@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DSH Log Lens</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">LL</div>
+      <div><strong>Log Lens</strong><span>Powered by Harness</span></div>
+    </div>
+    <button class="primary block" id="newConversation">＋ 新对话</button>
+    <div class="section-label"><span>对话记录</span></div>
+    <div id="conversationList" class="item-list conversation-list"></div>
+  </aside>
+
+  <main class="main">
+    <header class="main-header">
+      <div>
+        <div class="title-row">
+          <span id="statusDot" class="dot"></span>
+          <h1 id="currentName">未指定日志</h1>
+        </div>
+        <p id="currentDetail">填写日志文件/目录路径后开始猎错</p>
+      </div>
+      <div class="header-actions">
+        <input id="logPath" class="select" style="width:320px" placeholder="/path/to/app.log 或目录">
+        <button class="ghost" id="loadLogs">分析</button>
+        <button class="ghost icon-btn" id="toggleTheme" title="切换主题">🌙</button>
+      </div>
+    </header>
+
+    <div id="workspace" class="workspace">
+      <section class="center">
+        <div id="chatMessages" class="chat-scroll"></div>
+        <div class="composer-wrap">
+          <div id="streamStatus" class="stream-status hidden">
+            <span id="streamStatusText"><span class="status-spinner"></span>AI 正在思考</span>
+          </div>
+          <div class="composer">
+            <textarea id="chatInput" rows="1" placeholder="询问你的日志，例如：定位最近的错误根因"></textarea>
+            <div class="composer-bar">
+              <span class="composer-hint"><kbd>⌘</kbd>+<kbd>↵</kbd> 发送 · AI 只做只读分析</span>
+              <div class="composer-actions">
+                <button class="ghost small hidden" id="stopStream">停止</button>
+                <button class="send-btn" id="sendMessage" title="发送">↑</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="resource-sidebar">
+        <div class="resource-scroll">
+          <div class="resource-header">
+            <b>日志上下文</b>
+            <button class="ghost small" id="refreshResource">刷新</button>
+          </div>
+          <nav class="resource-tabs">
+            <button data-resource-tab="stats" class="active">级别</button>
+            <button data-resource-tab="errors">错误</button>
+            <button data-resource-tab="stacks">堆栈</button>
+            <button data-resource-tab="timeline">时间线</button>
+            <button data-resource-tab="tail">尾部</button>
+          </nav>
+          <section class="panel" data-tab="stats">
+            <div class="panel-title"><span>级别分布</span></div>
+            <div id="statsCard" class="panel-body muted">未加载日志</div>
+          </section>
+          <section class="panel hidden" data-tab="errors">
+            <div class="panel-title"><span>Top 错误模式</span></div>
+            <div id="errorList" class="panel-body muted">未加载日志</div>
+          </section>
+          <section class="panel hidden" data-tab="stacks">
+            <div class="panel-title"><span>异常堆栈聚类</span></div>
+            <div id="stackList" class="panel-body muted">未加载日志</div>
+          </section>
+          <section class="panel hidden" data-tab="timeline">
+            <div class="panel-title"><span>首个 ERROR 时间线</span></div>
+            <div id="timelineCard" class="panel-body muted">未加载日志</div>
+          </section>
+          <section class="panel hidden" data-tab="tail">
+            <div class="panel-title"><span>日志尾部</span></div>
+            <div id="tailCard" class="panel-body muted">未加载日志</div>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

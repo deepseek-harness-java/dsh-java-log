@@ -1,0 +1,6 @@
+id: dsh-java-log-plugin
+name: DSH Log Lens Plugin
+version: 0.1.0
+author: Xiaofuge
+description: Read-only log file analysis tools (error scan, stack clustering, timeline, level stats, tail) for DeepSeek Harness.
+entrypoint: cn.xiaofuge.dsh.log.plugin.DshLogPlugin
